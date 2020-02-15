@@ -1,5 +1,6 @@
 // export models to controller
 // 1. generate hash when defined password, add cryptography
+// 2. validation passwprd match
 
 import Sequelize, { Model } from 'sequelize';
 import bcrypt from 'bcryptjs';
@@ -27,6 +28,11 @@ class User extends Model {
     });
 
     return this;
+  }
+
+  // 2
+  checkPassword(password) {
+    return bcrypt.compare(password, this.password_hash);
   }
 }
 
