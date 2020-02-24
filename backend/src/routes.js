@@ -9,6 +9,7 @@ import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
 import ProviderController from './app/controllers/ProviderController';
+import AppointmentController from './app/controllers/AppointmentController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -21,6 +22,8 @@ routes.post('/sessions', SessionController.store); // create session
 routes.use(authMiddleware); // middlewares for validatioin
 
 routes.put('/users', UserController.update); // update user
+
+routes.post('/appointments', AppointmentController.store);
 
 routes.get('/providers', ProviderController.index);
 
