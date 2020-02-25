@@ -23,9 +23,10 @@ routes.use(authMiddleware); // middlewares for validatioin
 
 routes.put('/users', UserController.update); // update user
 
-routes.post('/appointments', AppointmentController.store);
+routes.get('/appointments', AppointmentController.index); // list appointments
+routes.post('/appointments', AppointmentController.store); // book appointmert
 
-routes.get('/providers', ProviderController.index);
+routes.get('/providers', ProviderController.index); // list providers
 
 routes.post('/files', upload.single('file'), FileController.store);
 
