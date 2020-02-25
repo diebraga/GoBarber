@@ -10,6 +10,7 @@ import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
 import ProviderController from './app/controllers/ProviderController';
 import AppointmentController from './app/controllers/AppointmentController';
+import BookController from './app/controllers/BookController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -25,6 +26,8 @@ routes.put('/users', UserController.update); // update user
 
 routes.get('/appointments', AppointmentController.index); // list appointments
 routes.post('/appointments', AppointmentController.store); // book appointmert
+
+routes.get('/booklist', BookController.index);
 
 routes.get('/providers', ProviderController.index); // list providers
 

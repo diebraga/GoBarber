@@ -6,12 +6,16 @@ import User from '../models/user';
 
 class AppointmentController {
   async index(req, res) {
+    // limit 20 appointrments
+    const { page = 1 } = req.query;
     // list appointment not canceled, icluding provider, order 'date, include avatar.
     // return id, name both, avatar return id url path shows img
     const appointments = await Appointment.findAll({
       where: { user_id: req.userId, canceled_at: null },
       order: ['date'],
       attributes: ['id', 'date'],
+      limit: 20,
+      offset: (page - 1) * 20,
       include: [
         {
           model: User,
