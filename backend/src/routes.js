@@ -31,6 +31,7 @@ routes.post('/appointments', AppointmentController.store); // book appointmert
 routes.get('/booklist', BookController.index);
 
 routes.get('/notifications', NotificationController.index); // list notifications
+routes.put('/notifications/:id', NotificationController.update); // mark not as read
 
 routes.get('/providers', ProviderController.index); // list providers
 
