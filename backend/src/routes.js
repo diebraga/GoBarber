@@ -27,6 +27,7 @@ routes.put('/users', UserController.update); // update user
 
 routes.get('/appointments', AppointmentController.index); // list appointments
 routes.post('/appointments', AppointmentController.store); // book appointmert
+routes.delete('/appointments/:id', AppointmentController.delete); // cancel appointment
 
 routes.get('/booklist', BookController.index);
 
