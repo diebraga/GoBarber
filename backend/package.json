@@ -1,4 +1,6 @@
-{
+  {
+   "author": "<diebraga0055@gmail.com>",
+   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/server.js",
     "dev:debug": "nodemon --inspect src/server.js"

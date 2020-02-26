@@ -49,6 +49,12 @@ class AppointmentController {
 
     const { provider_id, date } = req.body;
 
+    // if he is provider cant book to himself
+
+    if (provider_id === req.userId) {
+      return res.status(401).json({ error: 'Not allowed' });
+    }
+
     // check if provider_id is a provider
 
     const isProvider = await User.findOne({
