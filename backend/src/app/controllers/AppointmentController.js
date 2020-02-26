@@ -5,6 +5,8 @@ import File from '../models/file';
 import User from '../models/user';
 import Notification from '../schemas/Notification';
 
+import Mail from '../lib/Mail';
+
 class AppointmentController {
   async index(req, res) {
     // limit 20 appointrments
@@ -52,7 +54,7 @@ class AppointmentController {
     // if he is provider cant book to himself
 
     if (provider_id === req.userId) {
-      return res.status(401).json({ error: 'Not allowed' });
+      return res.status(401).json({ error: 'You can not book to yourself ' });
     }
 
     // check if provider_id is a provider
@@ -105,7 +107,15 @@ class AppointmentController {
   }
 
   async delete(req, res) {
-    const appointment = await Appointment.findByPk(req.params.id);
+    const appointment = await Appointment.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          as: 'provider',
+          attributes: ['name', 'email'],
+        },
+      ],
+    });
     // if it is not the owner of the appointment, it cant cancell
     if (appointment.user_id !== req.userId) {
       return res.status(401).json({
@@ -123,6 +133,12 @@ class AppointmentController {
     appointment.canceled_at = new Date();
 
     await appointment.save();
+
+    await Mail.sendMail({
+      to: `${appointment.provider.name} <${appointment.provider.email}>`,
+      subject: 'Appointment canceled',
+      text: `New appointment canceled`,
+    });
 
     return res.json(appointment);
   }
