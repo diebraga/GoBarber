@@ -114,6 +114,11 @@ class AppointmentController {
           as: 'provider',
           attributes: ['name', 'email'],
         },
+        {
+          model: User,
+          as: 'user',
+          attributes: ['name'],
+        },
       ],
     });
     // if it is not the owner of the appointment, it cant cancell
@@ -137,7 +142,12 @@ class AppointmentController {
     await Mail.sendMail({
       to: `${appointment.provider.name} <${appointment.provider.email}>`,
       subject: 'Appointment canceled',
-      text: `New appointment canceled`,
+      template: `cancelation`,
+      context: {
+        provider: appointment.provider.name,
+        user: appointment.user.name,
+        date: format(appointment.date, "'Day' dd 'of' MMMM', at' H:mm'h'"),
+      },
     });
 
     return res.json(appointment);
