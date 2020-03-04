@@ -2,6 +2,6 @@
 // import to SessionController
 
 export default {
-  secret: '4145ac4791a6781acad6705071e262e95a338f78c0b989a89dca35f0',
+  secret: 'fafc4bf90b60f9be9af7a6dc00758d24',
   expiresIn: '7d',
 };
