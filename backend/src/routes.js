@@ -12,6 +12,7 @@ import ProviderController from './app/controllers/ProviderController';
 import AppointmentController from './app/controllers/AppointmentController';
 import BookController from './app/controllers/BookController';
 import NotificationController from './app/controllers/NotificationController';
+import AvalibilityController from './app/controllers/AvalibilityController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -35,6 +36,7 @@ routes.get('/notifications', NotificationController.index); // list notification
 routes.put('/notifications/:id', NotificationController.update); // mark not as read
 
 routes.get('/providers', ProviderController.index); // list providers
+routes.get('/providers/:providerId/avalibility', AvalibilityController.index);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
