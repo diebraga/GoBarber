@@ -2,6 +2,6 @@
 // import to SessionController
 
 export default {
-  secret: 'fafc4bf90b60f9be9af7a6dc00758d24',
+  secret: process.env.APP_SECRET,
   expiresIn: '7d',
 };
