@@ -1,5 +1,6 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
+import Route from './Route';
 
 // import your pages here
 import SignIn from '../pages/SignIn';
@@ -14,8 +15,8 @@ function Routes() {
       <Route path="/" exact component={SignIn} />
       <Route path="/SignUp" component={SignUp} />
 
-      <Route path="/Profile" component={Profile} />
-      <Route path="/Dashboard" component={Dashboard} />
+      <Route path="/Profile" component={Profile} isPrivate />
+      <Route path="/Dashboard" component={Dashboard} isPrivate />
     </Switch>
   );
 }
