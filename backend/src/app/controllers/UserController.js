@@ -3,6 +3,7 @@
 
 import * as Yup from 'yup';
 import User from '../models/user';
+import File from '../models/file';
 
 class UserController {
   // yup validation scheme
@@ -78,12 +79,23 @@ class UserController {
       return res.status(401).json({ error: "Dosn't match" });
     }
     // update method
-    const { id, name, provider } = await user.update(req.body);
+    await user.update(req.body);
+
+    const { id, name, avatar, provider } = await User.findByPk(req.userId, {
+      include: [
+        {
+          model: File,
+          as: 'avatar',
+          attributes: ['id', 'path', 'url'],
+        },
+      ],
+    });
 
     return res.json({
       id,
       name,
       email,
+      avatar,
       provider,
     });
   }
