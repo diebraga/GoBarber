@@ -12,7 +12,9 @@ const schema = Yup.object().shape({
   email: Yup.string()
     .email('Invalid email')
     .required('Email required'),
-  password: Yup.string().required('Password required'),
+  password: Yup.string()
+    .min(6)
+    .required('Password required'),
 });
 
 function SignIn() {
