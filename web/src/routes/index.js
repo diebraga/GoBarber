@@ -13,10 +13,10 @@ function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={SignIn} />
-      <Route path="/SignUp" component={SignUp} />
+      <Route path="/signUp" component={SignUp} />
 
-      <Route path="/Profile" component={Profile} isPrivate />
-      <Route path="/Dashboard" component={Dashboard} isPrivate />
+      <Route path="/profile" component={Profile} isPrivate />
+      <Route path="/dashboard" component={Dashboard} isPrivate />
     </Switch>
   );
 }

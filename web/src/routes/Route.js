@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
-
 import AuthLayout from '../pages/_layouts/auth';
 import DefaultLayout from '../pages/_layouts/default';
 
-export default function RouteWrapper({
+import store from '../store';
+
+export default function RouterWrapper({
   component: Component,
-  isPrivate,
+  isPrivate = false,
   ...rest
 }) {
-  const signed = false;
+  const { signed } = store.getState().auth;
 
   if (!signed && isPrivate) {
     return <Redirect to="/" />;
@@ -34,14 +35,12 @@ export default function RouteWrapper({
   );
 }
 
-RouteWrapper.protoTypes = {
+RouterWrapper.propTypes = {
   isPrivate: PropTypes.bool,
   component: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
     .isRequired,
 };
 
-RouteWrapper.defaultProps = {
+RouterWrapper.defaultProps = {
   isPrivate: false,
 };
-
-// user will be able to access private routes just when they are logged
