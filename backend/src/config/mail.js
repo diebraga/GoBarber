@@ -3,12 +3,10 @@ export default {
   port: process.env.MAIL_PORT,
   secure: false,
   auth: {
-    user: 'process.env.MAIL_USER',
-    pass: 'process.env.MAIL_PASS',
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
   },
   default: {
-    from: 'Gobarber Team <noreply@gobarber.com>',
+    from: 'Equipe GoBarber <jpedroschmitz@hotmail.com>',
   },
 };
-
-// mailtrap (DEV)

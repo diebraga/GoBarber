@@ -1,9 +1,7 @@
-// export to  queue.js
-
 import { format, parseISO } from 'date-fns';
-import Mail from '../lib/Mail';
+import pt from 'date-fns/locale/pt-BR';
+import Mail from '../../lib/Mail';
 
-// job to send email
 class CancellationMail {
   get key() {
     return 'CancellationMail';
@@ -14,15 +12,14 @@ class CancellationMail {
 
     await Mail.sendMail({
       to: `${appointment.provider.name} <${appointment.provider.email}>`,
-      subject: 'Appointment canceled',
-      template: `cancelation`,
+      subject: 'Book canceled',
+      template: 'cancellation',
       context: {
         provider: appointment.provider.name,
         user: appointment.user.name,
-        date: format(
-          parseISO(appointment.date),
-          "'Day' dd 'of' MMMM', at' H:mm'h'"
-        ),
+        date: format(parseISO(appointment.date), "dd 'of' MMMM, '' H:mm'h'", {
+          locale: pt,
+        }),
       },
     });
   }

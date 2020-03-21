@@ -7,14 +7,12 @@ class Appointment extends Model {
       {
         date: Sequelize.DATE,
         canceled_at: Sequelize.DATE,
-        // add in frontend is past
         past: {
           type: Sequelize.VIRTUAL,
           get() {
             return isBefore(this.date, new Date());
           },
         },
-        // add frontend if is cancelable
         cancelable: {
           type: Sequelize.VIRTUAL,
           get() {
@@ -26,7 +24,6 @@ class Appointment extends Model {
         sequelize,
       }
     );
-
     return this;
   }
 

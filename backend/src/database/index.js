@@ -1,12 +1,9 @@
-// 1.  data base connection + load modelds
-
 import Sequelize from 'sequelize';
-import mongoose from 'mongoose';
+import moongose from 'mongoose';
 
-import User from '../app/models/user';
-import File from '../app/models/file';
-import Appointment from '../app/models/appointment';
-
+import User from '../app/models/User';
+import File from '../app/models/File';
+import Appointment from '../app/models/Appointment';
 import databaseConfig from '../config/database';
 
 const models = [User, File, Appointment];
@@ -17,7 +14,6 @@ class Database {
     this.mongo();
   }
 
-  // 1.
   init() {
     this.connection = new Sequelize(databaseConfig);
 
@@ -26,9 +22,8 @@ class Database {
       .map(model => model.associate && model.associate(this.connection.models));
   }
 
-  // mongo connection
   mongo() {
-    this.mongoConnection = mongoose.connect(process.env.MONGO_URL, {
+    this.mongoConnection = moongose.connect(process.env.MONGO_URL, {
       useNewUrlParser: true,
       useFindAndModify: true,
       useUnifiedTopology: true,

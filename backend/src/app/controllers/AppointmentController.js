@@ -1,35 +1,35 @@
 import * as Yup from 'yup';
 import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns';
-import Appointment from '../models/appointment';
-import File from '../models/file';
-import User from '../models/user';
+import pt from 'date-fns/locale/pt-BR';
+import User from '../models/User';
+import File from '../models/File';
+import Appointment from '../models/Appointment';
 import Notification from '../schemas/Notification';
 
 import CancellationMail from '../jobs/CancellationMail';
-import Queue from '../lib/Queue';
+import Queue from '../../lib/Queue';
 
 class AppointmentController {
   async index(req, res) {
-    // limit 20 appointrments
     const { page = 1 } = req.query;
-    // list appointment not canceled, icluding provider, order 'date, include avatar.
-    // return id, name both, avatar return id url path shows img
+    const LIMIT = 20;
+
     const appointments = await Appointment.findAll({
       where: { user_id: req.userId, canceled_at: null },
       order: ['date'],
       attributes: ['id', 'date', 'past', 'cancelable'],
-      limit: 20,
-      offset: (page - 1) * 20,
+      limit: LIMIT,
+      offset: (page - 1) * LIMIT,
       include: [
         {
           model: User,
           as: 'provider',
-          attributes: ['name', 'id'],
+          attributes: ['id', 'name'],
           include: [
             {
               model: File,
               as: 'avatar',
-              attributes: ['id', 'url', 'path'],
+              attributes: ['id', 'path', 'url'],
             },
           ],
         },
@@ -39,7 +39,6 @@ class AppointmentController {
     return res.json(appointments);
   }
 
-  // create appointment
   async store(req, res) {
     const schema = Yup.object().shape({
       provider_id: Yup.number().required(),
@@ -52,55 +51,53 @@ class AppointmentController {
 
     const { provider_id, date } = req.body;
 
-    // if he is provider cant book to himself
-
-    if (provider_id === req.userId) {
-      return res.status(401).json({ error: 'You can not book to yourself ' });
-    }
-
-    // check if provider_id is a provider
-
-    const isProvider = await User.findOne({
+    const checkIsProvider = await User.findOne({
       where: { id: provider_id, provider: true },
     });
-    // check if provider is true
-    if (!isProvider) {
+
+    if (!checkIsProvider) {
       return res
         .status(401)
         .json({ error: 'You can only book with providers' });
     }
-    // it will store hours from the begining
+
+    if (req.userId === provider_id) {
+      return res
+        .status(401)
+        .json({ error: "Providers can't book to themselves" });
+    }
+
     const hourStart = startOfHour(parseISO(date));
-    // book in the past not allowed
+
     if (isBefore(hourStart, new Date())) {
       return res.status(400).json({ error: 'Not allowed' });
     }
-    // check avalibility in an hour
-    const avalibility = await Appointment.findOne({
+
+    const checkAvailability = await Appointment.findOne({
       where: {
         provider_id,
         canceled_at: null,
         date: hourStart,
       },
     });
-    // if isn't avalible
-    if (avalibility) {
-      return res.status(400).json({ error: 'Not avalible' });
+
+    if (checkAvailability) {
+      return res.status(400).json({ error: 'Not available' });
     }
-    // create book 1 hour start
+
     const appointment = await Appointment.create({
       user_id: req.userId,
       provider_id,
       date,
     });
 
-    // notify provider when new appointment
-    // using mongo schema
     const user = await User.findByPk(req.userId);
-    const formattedDate = format(hourStart, "'Day' dd 'of' MMMM', at' H:mm'h'");
+    const formattedDate = format(hourStart, "dd 'de' MMMM, 'às' H:mm'h'", {
+      locale: pt,
+    });
 
     await Notification.create({
-      content: `${user.name} Book an appointment ${formattedDate}`,
+      content: `New book ${user.name} Day ${formattedDate}`,
       user: provider_id,
     });
 
@@ -122,20 +119,27 @@ class AppointmentController {
         },
       ],
     });
-    // if it is not the owner of the appointment, it cant cancell
+
+    if (!appointment) {
+      return res.status(401).json({
+        error: "Appointment not found, can't be canceled",
+      });
+    }
+
     if (appointment.user_id !== req.userId) {
       return res.status(401).json({
-        error: "You can't cancel the appointment",
+        error: 'You have no permission to cancel this appointment',
       });
     }
-    // get 2 hours
+
     const dateWithSub = subHours(appointment.date, 2);
-    // if the request is less than 2h , not allowed
+
     if (isBefore(dateWithSub, new Date())) {
       return res.status(401).json({
-        error: 'You only cancel 2h in adivance',
+        error: 'You can only cancel books 2 hours in advance.',
       });
     }
+
     appointment.canceled_at = new Date();
 
     await appointment.save();

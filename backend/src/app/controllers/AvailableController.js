@@ -2,23 +2,22 @@ import {
   startOfDay,
   endOfDay,
   setHours,
+  format,
   setMinutes,
   setSeconds,
-  format,
   isAfter,
 } from 'date-fns';
 import { Op } from 'sequelize';
-import Appointment from '../models/appointment';
+import Appointment from '../models/Appointment';
 
-class AvalibilityController {
+class AvailableController {
   async index(req, res) {
     const { date } = req.query;
 
     if (!date) {
-      return res.status(400).json({ error: 'Invalid date!' });
+      return res.status(400).json({ error: 'Invalid date' });
     }
 
-    // parse number to int
     const searchDate = Number(date);
 
     const appointments = await Appointment.findAll({
@@ -32,6 +31,7 @@ class AvalibilityController {
     });
 
     const schedule = [
+      '08:00',
       '09:00',
       '10:00',
       '11:00',
@@ -42,10 +42,10 @@ class AvalibilityController {
       '16:00',
       '17:00',
       '18:00',
+      '19:00',
     ];
 
-    // put hours counting hour min secss
-    const avalibility = schedule.map(time => {
+    const available = schedule.map(time => {
       const [hour, minute] = time.split(':');
       const value = setSeconds(
         setMinutes(setHours(searchDate, hour), minute),
@@ -54,15 +54,15 @@ class AvalibilityController {
 
       return {
         time,
-        value: format(value, "yyyy-MM-dd'T'HH:MM:ssxxx"),
-        avalible:
+        value: format(value, "yyyy-MM-dd'T'HH:mm:ssxxx"),
+        available:
           isAfter(value, new Date()) &&
-          !appointments.find(a => format(a.date, 'HH:,,') === time),
+          !appointments.find(a => format(a.date, 'HH:mm') === time),
       };
     });
 
-    return res.json(avalibility);
+    return res.json(available);
   }
 }
 
-export default new AvalibilityController();
+export default new AvailableController();
