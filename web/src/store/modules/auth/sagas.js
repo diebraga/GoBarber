@@ -28,9 +28,32 @@ export function* signIn({ payload }) {
 
     history.push('/dashboard');
   } catch (err) {
-    toast.error('Password or email invalid!');
+    toast.error('Password or Email invalid!');
     yield put(signFailure());
   }
 }
 
-export default all([takeLatest('@auth/SIGN_IN_REQUEST', signIn)]);
+export function* signUp({ payload }) {
+  try {
+    const { name, email, password } = payload;
+    // only prividers can signup
+    yield call(api.post, 'users', {
+      name,
+      email,
+      password,
+      provider: true,
+    });
+
+    // redirect to main
+    history.push('/');
+  } catch (err) {
+    toast.error('Failed review your data');
+
+    yield put(signFailure());
+  }
+}
+
+export default all([
+  takeLatest('@auth/SIGN_IN_REQUEST', signIn),
+  takeLatest('@auth/SIGN_UP_REQUEST', signUp),
+]);
