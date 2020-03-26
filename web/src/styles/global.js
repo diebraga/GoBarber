@@ -1,4 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
+
+// scroll ntifications
+import 'react-perfect-scrollbar/dist/css/styles.css';
 // import styles from react toatifyu
 import 'react-toastify/dist/ReactToastify.css';
 
