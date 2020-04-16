@@ -23,8 +23,8 @@ export default (signedIn = false) =>
           {
             tabBarOptions: {
               keyboardHidesTabBar: true,
-              activeTintColor: 'black',
-              inactiveTintColor: 'rgba(55, 55, 55, 0.6)',
+              activeTintColor: '#fff',
+              inactiveTintColor: 'rgba(255, 255, 255, 0.6)',
               style: {
                 backgroundColor: '#7159c1',
               },
