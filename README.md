@@ -1,6 +1,6 @@
 <h1 align="center">
 <br>
-  <img src="logo.svg" alt="GoBarber" width="90">
+  <img src="assets/logo.svg" alt="GoBarber" width="90">
 <br>
 <br>
 Gobarber API
