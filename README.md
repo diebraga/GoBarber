@@ -86,7 +86,7 @@ This app features all the latest tools and practices in web development!
 3. Run `yarn` to install dependencies.<br />
 4. Run `yarn start` the App.
 <p>
-<img src="go1.png" alt="GoBarber" width=""> <img src="go2.png" alt="GoBarber" width=""> <img src="go3.png" alt="GoBarber" width="">
+<img src="assets/go1.png" width="300" height="300"/> <img src="assets/go2.png" width="300" height="300"/> <img src="assets/go3.png" width="300" height="300"/>
 </p>
 
 ## Contributing
