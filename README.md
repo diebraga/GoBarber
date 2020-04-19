@@ -50,8 +50,6 @@ A Node.js API built with Express and all the latest tools and best practices in 
 
 <h1 align="center">
 <br>
-  <img src="logo.svg" alt="GoBarber" width="90">
-<br>
 <br>
 Gobarber Web
 </h1>
@@ -82,7 +80,7 @@ This app features all the latest tools and practices in web development!
 ## Get started
 
 1. Make sure backend is Runing `yarn dev`
-2. cd directiry web.<br />
+2. cd directiry `"web"`.<br />
 3. Run `yarn` to install dependencies.<br />
 4. Run `yarn start` the App.
 <p>
@@ -97,4 +95,48 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
+
+<h1 align="center">
+<br>
+<br>
+Gobarber Mobile
+</h1>
+
+<p align="center">Using this App you can book Appointments, see if appointments are avalible list day and hour cosuming the API.</p>
+
+<p align="center">
+  <a href="http://makeapullrequest.com">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome">
+  </a>
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License MIT">
+  </a>
+</p>
+
+<hr />
+
+## Features
+
+This app features all the latest tools and practices in web development!
+
+- ⚛ **React Native** — A library to build user interfaces
+- ♻ **Redux Redux Saga** — State management with middleware
+- 💅 **CSS** — styled-components
+- 🌸 **Reactotron** - Helps debugging process
+- 🚢 **React-navigation** — Lib helps in the navigation building
+- 🌐 **Axios** — Supports the Promise API
+- ⌚ **date-fns** — Lib helps date/hours converse
+- 💖 **Lint** — ESlint/Prettier/Editor Config
+
+## Get started
+
+1. Make sure backend is Runing `yarn dev`
+2. cd directiry `"mobile/gobarber"`.<br />
+3. Run `yarn` to install dependencies.<br />
+4. Run `react-native run-android` to build the App.
+4. to restart the app Run `react-native start`.
+
+<p>
+<img src="assets/go1.png" width="300" height="300"/> <img src="assets/go2.png" width="300" height="300"/> <img src="assets/go3.png" width="300" height="300"/>
+</p>
 
