@@ -129,7 +129,7 @@ This app features all the latest tools and practices in web development!
 4. to restart the app Run `react-native start`.
 
 <p>
-<img src="assets/gom1.png" width="200" height="350"/> <img src="assets/gom2.png" width="200" height="350"/> <img src="assets/gom3.png" width="200" height="350"/>
+<img src="assets/gom1.png" width="200" height="350"/> <img src="assets/gom2.png" width="200" height="350"/> <img src="assets/gom3.png" width="200" height="350"/> <img src="assets/gom4.png" width="200" height="350"/>
 </p>
 
 
