@@ -87,14 +87,6 @@ This app features all the latest tools and practices in web development!
 <img src="assets/go1.png" width="300" height="300"/> <img src="assets/go2.png" width="300" height="300"/> <img src="assets/go3.png" width="300" height="300"/>
 </p>
 
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
 
 <h1 align="center">
 <br>
@@ -137,6 +129,16 @@ This app features all the latest tools and practices in web development!
 4. to restart the app Run `react-native start`.
 
 <p>
-<img src="assets/go1.png" width="300" height="300"/> <img src="assets/go2.png" width="300" height="300"/> <img src="assets/go3.png" width="300" height="300"/>
+<img src="assets/gom1.png" width="200" height="350"/> <img src="assets/gom2.png" width="200" height="350"/> <img src="assets/gom3.png" width="200" height="350"/>
 </p>
+
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
 
