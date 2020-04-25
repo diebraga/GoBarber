@@ -6,7 +6,7 @@
 Gobarber API
 </h1>
 
-<p align="center">An barber API generates appointments >
+<p align="center">An barber API generates appointments, list, users, creation, updating. 
 
 <p align="center">
   <a href="https://opensource.org/licenses/MIT">
